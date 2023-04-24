@@ -1,52 +1,19 @@
-;  working with data
+[org 0x7c00]
 
-;[org 0x7c00]
+mov bx, HELLO_MSG
+call print_string
 
-;the_secret:
-;    db 'Booting OS',0
-
-
-;  using BIOS routines
-;mov ah, 0x0e
-
-;  conditional jump
-
-;cmp ax, 4
-;je then_block
-
-;mov bx, 45
-;jmp the_end
-
-;then_block:
-;	mov bx, 23
-
-;the_end:
-
-;  stack
-
-;mov bp, 0x8000
-;mov sp, bp
-
-;push 'A'
-;push 'B'
-;push 'C'
-
-;pop bx
-;mov al, bl
-;int 0x10
-
-;  memory addressing
-
-;mov al, [0x7ffa]
-;int 0x10
-
-;mov bx, the_secret
-;mov al, [bx]
-;int 0x10
+mov bx, GOODBYE_MSG
+call print_string
 
 jmp $
 
-;  padding and magic BIOS number
+%include "print_string.asm"
 
-times 510 - ($-$$) db 0
+HELLO_MSG:
+	db 'Hello, World!', 0
+GOODBYE_MSG:
+	db 'Goodbye!', 0
+
+times 510-($-$$) db 0
 dw 0xaa55
